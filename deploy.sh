@@ -4,14 +4,17 @@
 # Goal: OS update, Ollama bootstrap, Llama3 retrieval, and Discord connectivity test
 
 # 1. CORE CONFIGURATION (IDENTITY TOKENS)
-# [ IMPORTANT ] These should be passed as environment variables on execution:
-# export DISCORD_BOT_TOKEN="your_token"
-# export DISCORD_CHANNEL_ID="your_channel"
-# export TEMPORAL_ADDRESS="your_temporal_host:7233"
+# [ ⟐ OPS_CORE ] Loading environment from .env if present
+if [ -f .env ]; then
+    export $(cat .env | grep -v '^#' | xargs)
+fi
+
+# Fallback to provided defaults if not in .env
 DISCORD_BOT_TOKEN="${DISCORD_BOT_TOKEN:-}"
 DISCORD_CHANNEL_ID="${DISCORD_CHANNEL_ID:-}"
 TEMPORAL_ADDRESS="${TEMPORAL_ADDRESS:-}"
 TEMPORAL_NAMESPACE="${TEMPORAL_NAMESPACE:-default}"
+OLLAMA_MODEL="${OLLAMA_MODEL:-Bishop Server - Goseame}"
 
 # 2. SYSTEM INITIALIZATION
 echo "🚀 [ ⟐ BISHOP_CORE ] Initiating Remote Agent Deployment..."
@@ -29,6 +32,13 @@ curl -fsSL https://ollama.com/install.sh | sh
 # 4. NEURAL ORCHESTRATION 
 echo "🧠 [ ⟐ BISHOP_CORE ] Pulling Flagship Model: Llama3 8B..."
 ollama pull llama3:8b
+
+echo "🤖 [ ⟐ BISHOP_CORE ] Synthesizing Neural Identity: ${OLLAMA_MODEL}..."
+if [ -f Modelfile ]; then
+    ollama create "${OLLAMA_MODEL}" -f Modelfile
+else
+    echo "⚠️ Modelfile not found - skipping custom identity synthesis."
+fi
 
 # 5. TEMPORAL ORCHESTRATION STACK
 echo "📥 [ ⟐ BISHOP_CORE ] Installing Temporal CLI..."
