@@ -7,8 +7,11 @@
 # [ IMPORTANT ] These should be passed as environment variables on execution:
 # export DISCORD_BOT_TOKEN="your_token"
 # export DISCORD_CHANNEL_ID="your_channel"
+# export TEMPORAL_ADDRESS="your_temporal_host:7233"
 DISCORD_BOT_TOKEN="${DISCORD_BOT_TOKEN:-}"
 DISCORD_CHANNEL_ID="${DISCORD_CHANNEL_ID:-}"
+TEMPORAL_ADDRESS="${TEMPORAL_ADDRESS:-}"
+TEMPORAL_NAMESPACE="${TEMPORAL_NAMESPACE:-default}"
 
 # 2. SYSTEM INITIALIZATION
 echo "🚀 [ ⟐ BISHOP_CORE ] Initiating Remote Agent Deployment..."
@@ -22,7 +25,11 @@ curl -fsSL https://ollama.com/install.sh | sh
 echo "🧠 [ ⟐ BISHOP_CORE ] Pulling Flagship Model: Llama3 8B..."
 ollama pull llama3:8b
 
-# 5. DISCORD CONNECTIVITY TEST (RULE 46)
+# 5. TEMPORAL ORCHESTRATION STACK
+echo "📥 [ ⟐ BISHOP_CORE ] Installing Temporal CLI..."
+curl -sSf https://temporal.download/cli.sh | sh
+
+# 6. DISCORD CONNECTIVITY TEST (RULE 46)
 echo "📡 [ ⟐ BISHOP_CORE ] Executing Discord Connectivity Pulse..."
 
 PAYLOAD_MSG="[ ⟐ BISHOP_CORE ] [ NEXUS_UPDATE ] 
