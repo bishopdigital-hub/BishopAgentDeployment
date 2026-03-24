@@ -56,7 +56,22 @@ curl -sSf https://temporal.download/cli.sh | sh
 echo "📥 [ ⟐ BISHOP_CORE ] Installing n8n Automation Engine..."
 sudo npm install n8n -g
 
-# 7. DISCORD CONNECTIVITY TEST (RULE 46)
+# 7. CONTAINER ORCHESTRATION (DOCKER)
+echo "📥 [ ⟐ BISHOP_CORE ] Installing Docker Engine..."
+sudo apt-get install -y docker.io
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+
+# 8. OPEN WEBUI DEPLOYMENT
+echo "🚀 [ ⟐ BISHOP_CORE ] Deploying Open WebUI Visualization Layer..."
+sudo docker run -d -p 3000:8080 \
+    --add-host=host.docker.internal:host-gateway \
+    -v open-webui:/app/backend/data \
+    --name open-webui \
+    --restart always \
+    ghcr.io/open-webui/open-webui:main
+
+# 9. DISCORD CONNECTIVITY TEST (RULE 46)
 echo "📡 [ ⟐ BISHOP_CORE ] Executing Discord Connectivity Pulse..."
 
 PAYLOAD_MSG="[ ⟐ BISHOP_CORE ] [ NEXUS_UPDATE ] 
