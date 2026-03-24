@@ -17,6 +17,11 @@ TEMPORAL_NAMESPACE="${TEMPORAL_NAMESPACE:-default}"
 echo "🚀 [ ⟐ BISHOP_CORE ] Initiating Remote Agent Deployment..."
 sudo apt-get update && sudo apt-get install -y curl gpg jq ca-certificates
 
+# 3. NODE.JS & NPM (n8n DEPENDENCY)
+echo "📥 [ ⟐ BISHOP_CORE ] Installing Node.js LTS..."
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
 # 3. OLLAMA ENGINE DEPLOYMENT
 echo "📥 [ ⟐ BISHOP_CORE ] Installing Ollama Engine..."
 curl -fsSL https://ollama.com/install.sh | sh
@@ -29,7 +34,11 @@ ollama pull llama3:8b
 echo "📥 [ ⟐ BISHOP_CORE ] Installing Temporal CLI..."
 curl -sSf https://temporal.download/cli.sh | sh
 
-# 6. DISCORD CONNECTIVITY TEST (RULE 46)
+# 6. n8n AUTOMATION STACK
+echo "📥 [ ⟐ BISHOP_CORE ] Installing n8n Automation Engine..."
+sudo npm install n8n -g
+
+# 7. DISCORD CONNECTIVITY TEST (RULE 46)
 echo "📡 [ ⟐ BISHOP_CORE ] Executing Discord Connectivity Pulse..."
 
 PAYLOAD_MSG="[ ⟐ BISHOP_CORE ] [ NEXUS_UPDATE ] 
