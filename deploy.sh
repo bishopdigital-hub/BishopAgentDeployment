@@ -53,8 +53,12 @@ echo "📥 [ ⟐ BISHOP_CORE ] Installing Temporal CLI..."
 curl -sSf https://temporal.download/cli.sh | sh
 
 # 6. n8n AUTOMATION STACK
-echo "📥 [ ⟐ BISHOP_CORE ] Installing n8n Automation Engine..."
-sudo npm install n8n -g
+echo "📥 [ ⟐ BISHOP_CORE ] Installing n8n & PM2 Process Manager..."
+sudo npm install n8n pm2 -g
+
+echo "🚀 [ ⟐ BISHOP_CORE ] Initializing Persistent Automation (n8n)..."
+pm2 start n8n
+pm2 save
 
 # 7. CONTAINER ORCHESTRATION (DOCKER)
 echo "📥 [ ⟐ BISHOP_CORE ] Installing Docker Engine..."
