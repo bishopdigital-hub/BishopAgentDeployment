@@ -20,7 +20,15 @@ OLLAMA_MODEL="${OLLAMA_MODEL:-Bishop Server - Goseame}"
 echo "🚀 [ ⟐ BISHOP_CORE ] Initiating Remote Agent Deployment..."
 sudo apt-get update && sudo apt-get install -y curl gpg jq ca-certificates
 
-# 3. NODE.JS & NPM (n8n DEPENDENCY)
+# 3. SEMANTIC MEMORY STACK (POSTGRESQL + PGVECTOR)
+echo "📥 [ ⟐ BISHOP_CORE ] Installing Semantic Memory Layer (PostgreSQL)..."
+sudo apt-get install -y postgresql postgresql-contrib postgresql-18-pgvector
+
+echo "⚙️ [ ⟐ BISHOP_CORE ] Initializing Memory Database..."
+sudo -u postgres psql -c "CREATE DATABASE bishop_memory;"
+sudo -u postgres psql -d bishop_memory -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+# 4. NODE.JS & NPM (n8n DEPENDENCY)
 echo "📥 [ ⟐ BISHOP_CORE ] Installing Node.js LTS..."
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
