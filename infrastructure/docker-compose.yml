@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=100.80.59.110
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://100.80.59.110:5678/
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=n8n_admin@goseame.co.za
+      - N8N_BASIC_AUTH_PASSWORD=G0s3am3_n8n_!2026
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  web-ui:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web-ui:/usr/share/nginx/html
+    environment:
+      - NODE_NAME=Goseame-Server-01
+
+volumes:
+  n8n_data:

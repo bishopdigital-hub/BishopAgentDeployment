@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Bishop Remote Agent | RMM Sector</title>
+</head>
+<body>
+<div id="login-overlay" class="login-overlay">
+    <div class="login-box">
+        <div class="login-logo-area">
+            <img id="login-logo" src="src/assets/images/logo-bishop.svg" alt="Bishop Logo">
+            <h1>AUTHENTICATION REQUIRED</h1>
+        </div>
+        <p>Accessing Bishop Remote Fleet Command</p>
+        <div class="input-group">
+            <input type="password" id="password-input" placeholder="Operator Password..." onkeydown="if(event.key==='Enter') verifyLogin()">
+            <button onclick="verifyLogin()">UNLOCKED</button>
+        </div>
+        <div id="login-error" class="error-msg" style="display: none;">INVALID OPERATOR CREDENTIALS</div>
+    </div>
+</div>
+
+<div id="app" style="display: none;">
+    <div class="glass-container">
+        <header>
+            <div class="logo-area">
+                <img id="logo" src="src/assets/images/logo-bishop.svg" alt="Bishop Logo">
+                <h1>Bishop Remote Agent</h1>
+            </div>
+            <div id="status-badge" class="badge offline">Nexus Disconnected</div>
+        </header>
+
+        <main>
+            <section class="role-selector">
+                <h2>Sector Role Selection</h2>
+                <div class="toggle-group">
+                    <button id="role-server" class="role-btn active" onclick="setRole('server')">SERVER</button>
+                    <button id="role-workstation" class="role-btn" onclick="setRole('workstation')">WORKSTATION</button>
+                </div>
+                <p id="role-desc">High-power relay for Kali toolsets and server-side auditing.</p>
+            </section>
+
+            <section class="actions-grid">
+                <div class="action-card" onclick="runScan()">
+                    <div class="icon">⟐</div>
+                    <h3>Network Scan</h3>
+                    <p>Trigger Nmap topology mapping</p>
+                </div>
+                <div class="action-card" onclick="runAudit()">
+                    <div class="icon">🛡</div>
+                    <h3>Security Audit</h3>
+                    <p>Execute Lynis hardening check</p>
+                </div>
+                <div class="action-card" onclick="runExploit()">
+                    <div class="icon">🔥</div>
+                    <h3>Autonomous Exploit</h3>
+                    <p>Trigger MSFRPC exploitation sector</p>
+                </div>
+                <div class="action-card" onclick="openTerminal()">
+                    <div class="icon">$_</div>
+                    <h3>Remote Shell</h3>
+                    <p>Direct Nexus terminal link</p>
+                </div>
+            </section>
+
+            <section class="service-suite">
+                <h2>Platform Service Suite</h2>
+                <div class="service-grid">
+                    <div class="service-card" onclick="launchService('http://100.80.59.110:5678')">
+                        <div class="service-info">
+                            <h3>n8n Automation</h3>
+                            <span id="status-n8n" class="status-marker online">ONLINE</span>
+                        </div>
+                        <p>Open Workflow Engine</p>
+                    </div>
+                    <div class="service-card" onclick="launchService('http://100.80.59.110:8080')">
+                        <div class="service-info">
+                            <h3>Web UI Gateway</h3>
+                            <span id="status-webui" class="status-marker online">ONLINE</span>
+                        </div>
+                        <p>Open Decentralized UI</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="output-panel">
+                <div class="panel-header">
+                    <span>Tactical Console</span>
+                    <button class="clear-btn" onclick="clearOutput()">Clear</button>
+                </div>
+                <pre id="console-output">Awaiting directives...</pre>
+            </section>
+        </main>
+
+        <footer>
+            <span>Version 1.0.0-Unified</span>
+            <span id="agent-id">ID: bishop-remote-01</span>
+        </footer>
+    </div>
+</div>
+<script src="./src/main.js" type="module"></script>
+</body>
+</html>

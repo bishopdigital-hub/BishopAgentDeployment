@@ -1,0 +1,8 @@
+{
+  "agent_id": "goseame-server-01",
+  "agent_name": "Goseame Tactical Pivot",
+  "company": "Goseame",
+  "version": "1.5.1",
+  "role": "server",
+  "nexus_url": "http://localhost:9500"
+}
