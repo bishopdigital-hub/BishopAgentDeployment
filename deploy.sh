@@ -52,13 +52,18 @@ fi
 echo "📥 [ ⟐ BISHOP_CORE ] Installing Temporal CLI..."
 curl -sSf https://temporal.download/cli.sh | sh
 
-# 6. n8n AUTOMATION STACK
-echo "📥 [ ⟐ BISHOP_CORE ] Installing n8n & PM2 Process Manager..."
-sudo npm install n8n pm2 -g
-
-echo "🚀 [ ⟐ BISHOP_CORE ] Initializing Persistent Automation (n8n)..."
-pm2 start n8n
-pm2 save
+# 6. PLATFORM SERVICE SUITE (n8n & Web UI Gateway)
+echo "🚀 [ ⟐ BISHOP_CORE ] Initializing Containerized Service Suite..."
+if [ -d "infrastructure" ]; then
+    cd infrastructure
+    sudo docker-compose up -d
+    cd ..
+else
+    echo "⚠️ Infrastructure directory not found - falling back to manual n8n install."
+    sudo npm install n8n pm2 -g
+    pm2 start n8n
+    pm2 save
+fi
 
 # 7. CONTAINER ORCHESTRATION (DOCKER)
 echo "📥 [ ⟐ BISHOP_CORE ] Installing Docker Engine..."

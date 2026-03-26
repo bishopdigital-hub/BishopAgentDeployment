@@ -22,7 +22,7 @@ var assets embed.FS
 var iconData []byte
 
 var defaultRole = "unified"
-var defaultDiscordToken = "MTQ4NTAxOTc0Mzc1MTc2NjA5Nw.GX_2yC.C9wqyeNIGF7zdysZhiSUCIKTDKn2_UvvLL-Y5c"
+var defaultDiscordToken = ""
 var defaultDiscordChannel = "1485020950457094398"
 
 func main() {

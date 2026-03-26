@@ -1,4 +1,4 @@
-# Bishop Agent Deployment
+# BishopSA (Remote Server Agent)
 
 Standalone bootstrap repository for Bishop remote server agents.
 
